@@ -11,7 +11,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\6.longest-palindromic-substring.js",
+      "program": "${workspaceFolder}\\hash\\contiguous-array.js",
       "outFiles": [
         "${workspaceFolder}/**/*.js"
       ]
