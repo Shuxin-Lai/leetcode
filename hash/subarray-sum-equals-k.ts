@@ -1,7 +1,7 @@
 function subarraySum(nums: number[], k: number): number {
-  const map: Record<string, number> = {}
-  let sum = 0
   let res = 0
+  let sum = 0
+  const map = {}
   map[0] = 1
 
   nums.forEach((n) => {

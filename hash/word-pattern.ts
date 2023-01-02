@@ -1,16 +1,18 @@
 function wordPattern(pattern: string, s: string): boolean {
-  const map: Record<string, any> = {}
-  const map2: Record<string, any> = {}
-
   const words = s.split(' ')
+  if (words.length != pattern.length) {
+    return false
+  }
 
-  if (words.length != pattern.length) return false
+  const map1 = {}
+  const map2 = {}
 
-  for (let i = 0; i < words.length; i++) {
+  const len = words.length
+  for (let i = 0; i < len; i++) {
     const word = words[i]
     const p = pattern[i]
 
-    if (map[p] != null && map[p] != word) {
+    if (map1[p] != null && map1[p] != word) {
       return false
     }
 
@@ -18,7 +20,7 @@ function wordPattern(pattern: string, s: string): boolean {
       return false
     }
 
-    map[p] = word
+    map1[p] = word
     map2[word] = p
   }
 

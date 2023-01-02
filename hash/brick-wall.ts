@@ -1,19 +1,26 @@
 function leastBricks(wall: number[][]): number {
-  let res = 0
+  const len = wall.length
+  if (!len) {
+    return 0
+  }
+
   const map = {}
+  let max = 0
+  for (let i = 0; i < len; i++) {
+    const line = wall[i]
 
-  wall.forEach((w) => {
     let sum = 0
-
-    for (let i = 0; i + 1 < w.length; i++) {
-      const n = w[i]
-      sum += n
-      const count = map[sum] || 0
-
-      map[sum] = count + 1
-      res = Math.max(res, count + 1)
+    for (let j = 0; j + 1 < line.length; j++) {
+      const b = line[j]
+      sum += b
+      if (map[sum]) {
+        map[sum]++
+      } else {
+        map[sum] = 1
+      }
+      max = Math.max(max, map[sum])
     }
-  })
+  }
 
-  return wall.length - res
+  return len - max
 }

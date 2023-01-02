@@ -1,19 +1,20 @@
 function longestConsecutive(nums: number[]): number {
-  const map = {}
   let res = 0
+  const map = {}
 
-  nums.forEach((n) => {
-    if (map[n] == null) {
-      const left = map[n - 1] || 0
-      const right = map[n + 1] || 0
-      const currentLen = left + right + 1
-      res = Math.max(res, currentLen)
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i]
+    if (map[num] == null) {
+      const left = map[num - 1] || 0
+      const right = map[num + 1] || 0
+      const curr = left + right + 1
 
-      map[n] = currentLen
-      map[n - left] = currentLen
-      map[n + right] = currentLen
+      res = Math.max(curr, res)
+      map[num] = curr
+      map[num - left] = curr
+      map[num + right] = curr
     }
-  })
+  }
 
   return res
 }

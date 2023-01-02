@@ -1,31 +1,27 @@
 class Twitter {
-  private tweets: { tweetId: number; userId: number }[] = []
-  private users: Record<string, number[]>
+  private tweets: { userId: number; tweetId: number }[] = []
+  private users: Record<string, number[]> = {}
 
-  constructor() {
-    this.tweets = []
-    this.users = {}
-  }
+  constructor() {}
 
   postTweet(userId: number, tweetId: number): void {
-    this.tweets.push({ tweetId, userId })
+    this.tweets.push({ userId, tweetId })
   }
 
   getNewsFeed(userId: number): number[] {
-    const followees = this.users[userId]
-
-    const res: number[] = []
-    const ids = new Set<number>()
+    const ids = new Set()
+    const followeeIds = this.users[userId]
+    if (followeeIds) {
+      followeeIds.forEach((f) => ids.add(f))
+    }
     ids.add(userId)
 
-    if (followees) {
-      followees.forEach((f) => ids.add(f))
-    }
+    const res: number[] = []
 
     for (let i = this.tweets.length - 1; i >= 0 && res.length != 10; i--) {
-      const t = this.tweets[i]
-      if (ids.has(t.userId)) {
-        res.push(t.tweetId)
+      const tweet = this.tweets[i]
+      if (ids.has(tweet.userId)) {
+        res.push(tweet.tweetId)
       }
     }
 
@@ -33,26 +29,19 @@ class Twitter {
   }
 
   follow(followerId: number, followeeId: number): void {
-    const followeeIds = this.users[followerId]
+    let user = this.users[followerId] || []
+    user = user.filter((f) => f != followeeId)
+    user = [...user, followeeId]
 
-    if (!followeeIds) {
-      this.users[followerId] = []
-    }
-
-    this.users[followerId] = this.users[followerId].filter(
-      (f) => f !== followeeId,
-    )
-
-    this.users[followerId].push(followeeId)
+    this.users[followerId] = user
   }
 
   unfollow(followerId: number, followeeId: number): void {
-    const followeeIds = this.users[followerId]
-    if (!followeeIds) {
-      return
+    if (this.users[followerId]) {
+      this.users[followerId] = this.users[followerId].filter(
+        (f) => f != followeeId,
+      )
     }
-
-    this.users[followerId] = followeeIds.filter((f) => f != followeeId)
   }
 }
 
