@@ -1,13 +1,12 @@
 function removeKdigits(num: string, k: number): string {
   let res = ''
+
   const len = num.length
-  if (len <= k) {
-    return '0'
-  }
+  if (len <= k) return '0'
 
   for (let i = 0; i < len; i++) {
     const char = num[i]
-    while (res.length && char < res[res.length - 1] && k) {
+    while (res.length && k && char < res[res.length - 1]) {
       k--
       res = res.substring(0, res.length - 1)
     }
@@ -15,8 +14,9 @@ function removeKdigits(num: string, k: number): string {
     res += char
   }
 
-  res = res.substring(0, res.length - k)
-  res = res.replace(/^0*/, '')
+  k && (res = res.substring(0, res.length - k))
 
-  return res != '' ? res : '0'
+  res = res.replace(/^0+/, '')
+
+  return res || '0'
 }
