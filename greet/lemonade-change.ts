@@ -7,17 +7,15 @@ function lemonadeChange(bills: number[]): boolean {
     if (bill == 5) {
       five++
     } else if (bill == 10) {
-      if (!five) {
-        return false
-      }
+      if (!five) return false
+
       five--
       ten++
     } else {
       let t = 15
-
       if (ten) {
-        t = 5
         ten--
+        t = 5
       }
 
       five = five - Math.floor(t / 5)

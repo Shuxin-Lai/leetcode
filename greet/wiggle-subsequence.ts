@@ -1,39 +1,40 @@
-function unique(nums: number[]): number[] {
-  const len = nums.length
-  if (len <= 1) {
-    return nums
+function wiggleMaxLength(nums: number[]): number {
+  nums = unique(nums)
+  if (nums.length <= 2) {
+    return nums.length
   }
 
-  const res: number[] = []
-  res.push(nums[0])
+  let res = 2
 
-  for (let i = 1; i < len; i++) {
-    const previous = nums[i - 1]
-    const curr = nums[i]
-    if (curr != previous) {
-      res.push(curr)
+  for (let i = 1; i + 1 < nums.length; i++) {
+    const p = nums[i - 1]
+    const c = nums[i]
+    const n = nums[i + 1]
+    if (p < c && c > n) {
+      res++
+      continue
+    }
+
+    if (p > c && c < n) {
+      res++
     }
   }
 
   return res
 }
 
-function wiggleMaxLength(nums: number[]): number {
-  nums = unique(nums)
-
+function unique(nums: number[]): number[] {
   const len = nums.length
-  if (len <= 2) {
-    return len
+  if (len <= 1) {
+    return [...nums]
   }
 
-  let res = 2
+  const res = [nums[0]]
 
-  for (let i = 1; i + 1 < len; i++) {
-    const left = nums[i - 1]
-    const curr = nums[i]
-    const right = nums[i + 1]
-    if ((curr > left && curr > right) || (curr < left && curr < right)) {
-      res++
+  for (let i = 1; i < len; i++) {
+    const num = nums[i]
+    if (num != nums[i - 1]) {
+      res.push(num)
     }
   }
 

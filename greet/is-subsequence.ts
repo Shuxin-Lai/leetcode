@@ -4,13 +4,15 @@ function isSubsequence(s: string, t: string): boolean {
   if (len1 > len2) {
     return false
   }
-
   let i = 0
-  for (let j = 0; j < len2 && i < len1; j++) {
-    const char = t[j]
-    if (char == s[i]) {
+  let j = 0
+
+  while (i < len1 && j < len2) {
+    if (t[j] == s[i]) {
       i++
     }
+
+    j++
   }
 
   return i == len1
