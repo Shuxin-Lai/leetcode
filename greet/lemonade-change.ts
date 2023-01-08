@@ -6,22 +6,26 @@ function lemonadeChange(bills: number[]): boolean {
     const bill = bills[i]
     if (bill == 5) {
       five++
-    } else if (bill == 10) {
+      continue
+    }
+
+    if (bill == 10) {
       if (!five) return false
 
       five--
       ten++
-    } else {
-      let t = 15
-      if (ten) {
-        ten--
-        t = 5
-      }
+      continue
+    }
 
-      five = five - Math.floor(t / 5)
-      if (five < 0) {
-        return false
-      }
+    let t = 15
+    if (ten) {
+      ten--
+      t = 5
+    }
+
+    five = five - Math.floor(t / 5)
+    if (five < 0) {
+      return false
     }
   }
 

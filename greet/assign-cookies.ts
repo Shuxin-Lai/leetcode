@@ -1,19 +1,19 @@
 function findContentChildren(g: number[], s: number[]): number {
-  g = g.sort((a, b) => a - b)
-  s = s.sort((a, b) => a - b)
+  g = g.sort((a, b) => {
+    return a - b
+  })
 
-  let res = 0
+  s = s.sort((a, b) => {
+    return a - b
+  })
 
   let i = 0
-  let j = 0
 
-  while (i < g.length && j < s.length) {
+  for (let j = 0; j < s.length && i < g.length; j++) {
     if (s[j] >= g[i]) {
       i++
-      res++
     }
-    j++
   }
 
-  return res
+  return i
 }
