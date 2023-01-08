@@ -25,27 +25,24 @@ class TreeNode {
 }
 
 function findDuplicateSubtrees(root: TreeNode | null): Array<TreeNode | null> {
-  const res: (TreeNode | null)[] = []
-  const map = {}
+  const res: Array<TreeNode | null> = []
+  const map: any = {}
+
+  find(root)
 
   function find(root: TreeNode | null): string {
     if (!root) {
-      return '@'
+      return '_'
     }
+    const key = `(${find(root.left)}${root.val}${find(root.right)})`
+    map[key] = (map[key] || 0) + 1
 
-    const left = find(root.left)
-    const right = find(root.right)
-    const key = `(${left}${root.val}${right})`
-    if (map[key] == 1) {
+    if (map[key] == 2) {
       res.push(root)
     }
 
-    map[key] = (map[key] || 0) + 1
-
     return key
   }
-
-  find(root)
 
   return res
 }

@@ -1,23 +1,20 @@
 function intersect(nums1: number[], nums2: number[]): number[] {
-  if (nums1.length > nums2.length) {
-    const tmp = nums1
-    nums1 = nums2
-    nums2 = tmp
+  const map = {}
+  for (let i = 0; i < nums1.length; i++) {
+    const num = nums1[i]
+    map[num] = (map[num] || 0) + 1
   }
 
   const res: number[] = []
 
-  const map = {}
-  nums2.forEach((n) => {
-    map[n] = (map[n] || 0) + 1
-  })
+  for (let i = 0; i < nums2.length; i++) {
+    const num = nums2[i]
 
-  nums1.forEach((n) => {
-    if (map[n]) {
-      res.push(n)
-      map[n]--
+    if (map[num]) {
+      res.push(num)
+      map[num] = map[num] - 1
     }
-  })
+  }
 
   return res
 }

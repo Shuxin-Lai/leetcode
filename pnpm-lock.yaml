@@ -1,12 +1,20 @@
 lockfileVersion: 5.4
 
 specifiers:
+  nestjs: ^0.0.1
   typescript: ^4.9.4
 
 dependencies:
+  nestjs: registry.npmmirror.com/nestjs/0.0.1
   typescript: registry.npmmirror.com/typescript/4.9.4
 
 packages:
+
+  registry.npmmirror.com/nestjs/0.0.1:
+    resolution: {integrity: sha512-LJTf2zDRtWE69B6R2DUW6/LCftgVOq3kp3aqxPsB0eei8OX+lW2RFjzREZWRL1GUD/jGdBSMhM3Q5YWLC2uHNg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nestjs/-/nestjs-0.0.1.tgz}
+    name: nestjs
+    version: 0.0.1
+    dev: false
 
   registry.npmmirror.com/typescript/4.9.4:
     resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/typescript/-/typescript-4.9.4.tgz}

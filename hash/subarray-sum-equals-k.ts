@@ -4,14 +4,15 @@ function subarraySum(nums: number[], k: number): number {
   const map = {}
   map[0] = 1
 
-  nums.forEach((n) => {
-    sum += n
-
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i]
+    sum += num
     if (map[sum - k]) {
       res += map[sum - k]
     }
+
     map[sum] = (map[sum] || 0) + 1
-  })
+  }
 
   return res
 }

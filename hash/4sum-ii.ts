@@ -6,20 +6,22 @@ function fourSumCount(
 ): number {
   const map = {}
   let res = 0
+  for (let i = 0; i < nums1.length; i++) {
+    const n1 = nums1[i]
+    for (let j = 0; j < nums2.length; j++) {
+      const n2 = nums2[j]
+      map[n1 + n2] = (map[n1 + n2] || 0) + 1
+    }
+  }
 
-  nums1.forEach((n1) => {
-    nums2.forEach((n2) => {
-      const n12 = n1 + n2
-      map[n12] = (map[n12] || 0) + 1
-    })
-  })
-
-  nums3.forEach((n3) => {
-    nums4.forEach((n4) => {
-      const n34 = n3 + n4
-      res += map[-n34] || 0
-    })
-  })
+  for (let i = 0; i < nums3.length; i++) {
+    const n3 = nums3[i]
+    for (let j = 0; j < nums4.length; j++) {
+      const n4 = nums4[j]
+      const count = map[-(n3 + n4)] || 0
+      res += count
+    }
+  }
 
   return res
 }

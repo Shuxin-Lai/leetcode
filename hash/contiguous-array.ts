@@ -1,18 +1,20 @@
 function findMaxLength(nums: number[]): number {
-  let sum = 0
   let res = 0
-  const map = {}
-  map[0] = -1
+  const len = nums.length
+  let sum = 0
+  const map = {
+    0: -1,
+  }
 
-  nums.forEach((n, idx) => {
-    sum += n == 0 ? -1 : 1
-
-    if (map[sum] == undefined) {
-      res = Math.max(res, idx - map[sum])
+  for (let i = 0; i < len; i++) {
+    const num = nums[i]
+    sum += num == 0 ? -1 : 1
+    if (map[sum] != null) {
+      res = Math.max(res, i - map[sum])
     } else {
-      map[sum] = idx
+      map[sum] = i
     }
-  })
+  }
 
   return res
 }

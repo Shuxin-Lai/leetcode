@@ -1,47 +1,52 @@
 class Twitter {
   private tweets: { userId: number; tweetId: number }[] = []
   private users: Record<string, number[]> = {}
-
   constructor() {}
 
   postTweet(userId: number, tweetId: number): void {
-    this.tweets.push({ userId, tweetId })
+    this.tweets.push({
+      userId,
+      tweetId,
+    })
   }
 
   getNewsFeed(userId: number): number[] {
-    const ids = new Set()
-    const followeeIds = this.users[userId]
-    if (followeeIds) {
-      followeeIds.forEach((f) => ids.add(f))
-    }
+    const followeesIds = this.users[userId] || []
+    const ids = new Set<number>()
     ids.add(userId)
-
+    followeesIds.forEach((f) => ids.add(f))
     const res: number[] = []
-
-    for (let i = this.tweets.length - 1; i >= 0 && res.length != 10; i--) {
-      const tweet = this.tweets[i]
-      if (ids.has(tweet.userId)) {
-        res.push(tweet.tweetId)
+    let i = this.tweets.length - 1
+    while (res.length < 10 && i >= 0) {
+      const feed = this.tweets[i]
+      if (ids.has(feed.userId)) {
+        res.push(feed.tweetId)
       }
+
+      i--
     }
 
     return res
   }
 
   follow(followerId: number, followeeId: number): void {
-    let user = this.users[followerId] || []
-    user = user.filter((f) => f != followeeId)
-    user = [...user, followeeId]
+    if (!this.users[followerId]) {
+      this.users[followerId] = []
+    }
 
-    this.users[followerId] = user
+    this.users[followerId] = this.users[followerId].filter(
+      (f) => f != followeeId,
+    )
+    this.users[followerId].push(followeeId)
   }
 
   unfollow(followerId: number, followeeId: number): void {
-    if (this.users[followerId]) {
-      this.users[followerId] = this.users[followerId].filter(
-        (f) => f != followeeId,
-      )
+    if (!this.users[followerId]) {
+      return
     }
+    this.users[followerId] = this.users[followerId].filter(
+      (f) => f != followeeId,
+    )
   }
 }
 

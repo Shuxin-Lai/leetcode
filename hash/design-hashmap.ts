@@ -1,20 +1,20 @@
 class MyHashMap {
-  private store: Record<any, any>
+  private map: Record<string, any>
   constructor() {
-    this.store = {}
+    this.map = {}
   }
 
   put(key: number, value: number): void {
-    this.store[key] = value
+    this.map[key] = value
   }
 
   get(key: number): number {
-    const res = this.store[key]
+    const res = this.map[key]
     return res == null ? -1 : res
   }
 
   remove(key: number): void {
-    delete this.store[key]
+    delete this.map[key]
   }
 }
 
